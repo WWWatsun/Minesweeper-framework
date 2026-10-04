@@ -5,20 +5,28 @@ import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+if sys.stdout and hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
 from env.environment import MinesweeperEnv
 from core.board import GameState
 from agents.random_agent import RandomAgent
-#from agents.dfs_agent import DFSAgent
-#from agents.bfs_agent import BFSAgent
-#from agents.astar_agent import AStarAgent
-#from agents.heuristic_agent import HeuristicAgent
+from agents.dfs_agent import DFSAgent
+from agents.bfs_agent import BFSAgent
+from agents.astar_agent import AStarAgent
+from agents.heuristic_agent import HeuristicAgent
+from agents.csp_agent import CSPAgent
 
 AGENTS = {
     "random": RandomAgent,
-    #"dfs": DFSAgent,
-    #"bfs": BFSAgent,
-    #"astar": AStarAgent,
-    #"heuristic": HeuristicAgent,
+    "dfs": DFSAgent,
+    "bfs": BFSAgent,
+    "astar": AStarAgent,
+    "heuristic": HeuristicAgent,
+    "csp": CSPAgent,
 }
 
 def run_episode(env, agent, max_steps=10000):
